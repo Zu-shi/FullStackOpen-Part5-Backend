@@ -13,6 +13,7 @@ const blogRouter = require("./controllers/blogController");
 const userRouter = require("./controllers/userController");
 const loginRouter = require("./controllers/loginController");
 
+
 // Middlewares
 const { errorHandler, requestLogger, tokenExtractor } = require("./utils/middleware");
 
@@ -31,6 +32,7 @@ mongoose
   .connect(MONGODB_URI, mongoDBOptions)
   .then(() => {
     logger.info("connected to MongoDB");
+    console.log("controller")
   })
   .catch((error) => {
     logger.error("error connecting to MongoDB", error.message);
@@ -47,3 +49,10 @@ app.use("/api/login", loginRouter);
 app.use(errorHandler);
 
 module.exports = app;
+
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV == "test") {
+  console.log("Adding test controller")
+  const testRouter = require("./controllers/testController");
+  app.use("/api/testing", testRouter);
+}
