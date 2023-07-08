@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 
 // Get all blogs
 blogRouter.get("/", async (request, response) => {
-  const blogs = await Blog.find({}).populate("user");
+  const blogs = await Blog.find({});
   response.json(blogs);
 });
 
@@ -75,6 +75,9 @@ blogRouter.put("/:id", async (request, response, next) => {
 
   try {
     const opts = { new: true };
+    const result1 = await Blog.findById(id);
+    console.log(result1);
+
     const result = await Blog.findByIdAndUpdate(id, body, opts);
     response.json(result);
   } catch (err) {
