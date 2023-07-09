@@ -28,7 +28,7 @@ loginRouter.post("/", async (request, response, next) => {
   logger.info("Login succeeded");
   response
     .status(200)
-    .send({ token, username, name });
+    .send({ token, username, name, "id": _id });
 });
 
 module.exports = loginRouter;
